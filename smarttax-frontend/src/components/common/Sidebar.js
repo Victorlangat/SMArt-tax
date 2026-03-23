@@ -1,61 +1,106 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
+import { Icon } from './Icons';
 import '../../styles/components/sidebar.css';
 
-const Sidebar = () => {
-  const menuItems = [
-    { path: '/dashboard', icon: '📊', label: 'Dashboard', exact: true },
-    { path: '/vehicle-lookup', icon: '🔍', label: 'Vehicle Lookup' },
-    { path: '/tax-calculator', icon: '🧮', label: 'Tax Calculator' },
-    { path: '/document-verification', icon: '📄', label: 'Document Verification' },
-    { path: '/reports', icon: '📋', label: 'Reports' },
-    { path: '/admin-crsp', icon: '⚙️', label: 'CRSP Admin', admin: true },
-    { path: '/audit-log', icon: '📊', label: 'Audit Log', admin: true },
-    { path: '/settings', icon: '⚙️', label: 'Settings' },
-  ];
+const Sidebar = ({ user, onLogout }) => {
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    onLogout();
+    navigate('/login');
+  };
 
   return (
-    <aside className="smarttax-sidebar">
+    <div className="sidebar">
+      {/* Logo & Title */}
       <div className="sidebar-header">
-        <h3 className="sidebar-title">Navigation</h3>
+        <div className="sidebar-logo">
+<Icon name="car" className="logo-icon" />
+          <div className="logo-text">
+            <h1>SmartTax</h1>
+            <p className="logo-subtitle">Vehicle Import Taxes</p>
+          </div>
+        </div>
       </div>
-      
-      <nav className="sidebar-menu">
-        <ul className="sidebar-nav">
-          {menuItems.map((item) => (
-            <li key={item.path} className="sidebar-item">
-              <NavLink 
-                to={item.path} 
-                className={({ isActive }) => 
-                  `sidebar-link ${isActive ? 'active' : ''}`
-                }
-                end={item.exact}
-              >
-                <span className="sidebar-icon">{item.icon}</span>
-                <span className="sidebar-label">{item.label}</span>
-                {item.admin && <span className="admin-badge">Admin</span>}
-              </NavLink>
-            </li>
-          ))}
+
+      {/* Navigation */}
+      <nav className="sidebar-nav">
+        <ul className="nav-menu">
+          <li className="nav-item">
+            <NavLink 
+              to="/dashboard" 
+              className={({ isActive }) => isActive ? 'nav-link active' : 'nav-link'}
+            >
+<Icon name="barChart" className="nav-icon" />
+              <span className="nav-text">Dashboard</span>
+            </NavLink>
+          </li>
+          
+          <li className="nav-item">
+            <NavLink 
+              to="/vehicle-lookup" 
+              className={({ isActive }) => isActive ? 'nav-link active' : 'nav-link'}
+            >
+<Icon name="search" className="nav-icon" />
+              <span className="nav-text">Find Vehicle</span>
+            </NavLink>
+          </li>
+          
+          <li className="nav-item">
+            <NavLink 
+              to="/tax-calculator" 
+              className={({ isActive }) => isActive ? 'nav-link active' : 'nav-link'}
+            >
+<Icon name="calculate" className="nav-icon" />
+              <span className="nav-text">Calculate Tax</span>
+            </NavLink>
+          </li>
+          
+          <li className="nav-item">
+            <NavLink 
+              to="/my-crsp" 
+              className={({ isActive }) => isActive ? 'nav-link active' : 'nav-link'}
+            >
+<Icon name="description" className="nav-icon" />
+              <span className="nav-text">My CRSP</span>
+            </NavLink>
+          </li>
         </ul>
       </nav>
-      
+
+      {/* User Profile / Login */}
       <div className="sidebar-footer">
-        <div className="sidebar-stats">
-          <div className="stat-item">
-            <span className="stat-label">Calculations Today</span>
-            <span className="stat-value">24</span>
+        {user ? (
+          <div className="user-profile">
+            <div className="user-avatar">
+              {user.name ? user.name.charAt(0).toUpperCase() : 'U'}
+            </div>
+            <div className="user-info">
+              <span className="user-name">{user.name || 'User'}</span>
+              <span className="user-email">{user.email || ''}</span>
+            </div>
+            <button 
+              className="logout-btn"
+              onClick={handleLogout}
+              title="Logout"
+            >
+<Icon name="logout" className="logout-icon" />
+            </button>
           </div>
-          <div className="stat-item">
-            <span className="stat-label">Accuracy Rate</span>
-            <span className="stat-value">98.5%</span>
+        ) : (
+          <div className="login-prompt">
+            <button 
+              className="login-btn"
+              onClick={() => navigate('/login')}
+            >
+<Icon name="login" className="login-icon" />
+              <span>Login</span>
+            </button>
           </div>
-        </div>
-        <div className="sidebar-help">
-          <a href="/help" className="help-link">Need Help?</a>
-        </div>
+        )}
       </div>
-    </aside>
+    </div>
   );
 };
 

@@ -105,7 +105,14 @@ const [selectedVehicle, setSelectedVehicle] = useState(null);
     }
   };
 
-  // Load popular vehicles + Corolla variants on mount
+// Load popular vehicles + Corolla variants on mount
+  const corollaVariants = [
+    {make: 'Toyota', model: 'Corolla', year: 2024, engineCC: 1800, fuelType: 'petrol', transmission: 'automatic'},
+    {make: 'Toyota', model: 'Corolla', year: 2023, engineCC: 1600, fuelType: 'petrol', transmission: 'manual'},
+    {make: 'Toyota', model: 'Corolla Hybrid', year: 2024, engineCC: 1800, fuelType: 'hybrid', transmission: 'CVT'},
+    {make: 'Toyota', model: 'Corolla Cross', year: 2024, engineCC: 2000, fuelType: 'petrol', transmission: 'automatic'},
+  ];
+
   useEffect(() => {
     const loadPopularVehicles = async () => {
       try {
@@ -118,8 +125,6 @@ const [selectedVehicle, setSelectedVehicle] = useState(null);
       } catch (err) {
         console.log('Popular vehicles API unavailable, using hardcoded Corollas');
       }
-
-
     };
 
     loadPopularVehicles();
@@ -349,19 +354,21 @@ const [selectedVehicle, setSelectedVehicle] = useState(null);
                   )}
                 </div>
               ))}
+              {/* Corolla variants */}
+              {corollaVariants.map((corolla, cIndex) => (
                 <div 
-                  key={`corolla-${index}`} 
+                  key={`corolla-${cIndex}`} 
                   className="popular-card corolla-highlight"
                   title="Hardcoded fallback - click to search"
-                  onClick={() => handleQuickSelect(vehicle)}
+                  onClick={() => handleQuickSelect(corolla)}
                 >
                   <div className="card-main">
-                    <strong>{vehicle.make} {vehicle.model}</strong>
-                    <span className="year-tag">{vehicle.year}</span>
+                    <strong>{corolla.make} {corolla.model}</strong>
+                    <span className="year-tag">{corolla.year}</span>
                   </div>
                   <div className="card-details">
-                    <span>{vehicle.engineCC}cc</span>
-                    <span className="fuel-tag">{vehicle.fuelType}</span>
+                    <span>{corolla.engineCC}cc</span>
+                    <span className="fuel-tag">{corolla.fuelType}</span>
                   </div>
                   <div className="card-footer">
                     <small>Popular Variant</small>

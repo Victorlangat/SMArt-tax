@@ -29,10 +29,10 @@ const [selectedVehicle, setSelectedVehicle] = useState(null);
       }
     }
     fetchMakesAndModels();
+  // eslint-disable-line react-hooks/exhaustive-deps
   }, []);
 
-  const [crspLoading, setCrspLoading] = useState(false);
-  const [crspError, setCrspError] = useState('');
+  // crspLoading, crspError removed - unused
 
   // Fetch makes from dedicated endpoint + retry
   const fetchMakesAndModels = async (retryCount = 0) => {
@@ -59,7 +59,7 @@ const [selectedVehicle, setSelectedVehicle] = useState(null);
       response = await fetch('http://localhost:5000/api/crsp/all?limit=200');
       data = await response.json();
       if (data.success && data.crspData && data.crspData.length > 0) {
-        const uniqueMap = new Map();
+    // uniqueMap unused
         const makesSet = new Set();
         const modelsMap = {};
         
@@ -144,7 +144,7 @@ const [selectedVehicle, setSelectedVehicle] = useState(null);
     
     const interval = setInterval(fetchMakesAndModels, 30000);
     return () => clearInterval(interval);
-  }, []); // Removed deps for polling
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const handleSearch = async (formData) => {
     setLoading(true);

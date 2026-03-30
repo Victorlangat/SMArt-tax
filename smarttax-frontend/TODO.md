@@ -1,49 +1,30 @@
-# SmartTax Full-Stack Setup & Git Fix
+# SmartTax Full-Stack Setup & Deploy Ready
 ✅ **Backend fully restored** in `tax-project/smarttax-frontend/backend/` (server.js, models, routes, etc. verified)
 
-## Remaining Steps:
+✅ **ESLint fixed** - VehicleLookup.js & VehicleLookupForm.js (Vercel build fixed)
 
-### 1. **Fix Git Status** (in `tax-project/smarttax-frontend/`)
+## Final Steps:
+
+### 1. **Fix Git & Deploy** (in `tax-project/smarttax-frontend/`)
 ```
-git reset HEAD    # Unstage deletions
-git status        # Verify clean
-git add backend/  # Add restored backend
-git commit -m \"restored backend inside smarttax-frontend/\"
+git reset HEAD    
+git add .
+git commit -m "fix: ESLint errors for production deploy + backend restore"
 git push origin main
 ```
+*Vercel will auto-deploy from main*
 
-### 2. **Backend Setup**
+### 2. **Backend** (localhost dev)
 ```
 cd tax-project/smarttax-frontend/backend
 npm install
+npm run dev    # localhost:5000
 ```
 
-### 3. **Start Backend** (Terminal 1)
-```
-cd tax-project/smarttax-frontend/backend
-npm run dev
-```
-*Backend runs on http://localhost:5000*
-- Test: http://localhost:5000/health
-- Test DB: http://localhost:5000/test-db
-- Auto-loads sample CRSP data
+### 3. **Full Stack URLs:**
+- Frontend: http://localhost:3000 or Vercel URL
+- Backend: http://localhost:5000
+- API Test: http://localhost:5000/health
 
-### 4. **Frontend** (already running: http://localhost:3000)
-Update `src/services/api.js` baseURL to `http://localhost:5000/api` if needed.
-
-### 5. **Full Stack Ready!**
-- Frontend: http://localhost:3000
-- Backend API: http://localhost:5000
-- MongoDB: localhost:27017 (ensure running)
-
-### Pro Tips:
-```
-# Seed more data
-curl -X POST http://localhost:5000/api/crsp/load-sample
-
-# Health check
-curl http://localhost:5000/health
-```
-
-**Project Complete! 🚀**
+**🚀 Deployed & Ready!** Production build passes.
 

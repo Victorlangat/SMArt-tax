@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 
-const VehicleLookupForm = ({ onSubmit, loading: parentLoading, availableMakes = [], availableModels = [] }) => {
+const VehicleLookupForm = ({ onSubmit, availableMakes = [], availableModels = [] }) => {
   const [formData, setFormData] = useState({
     make: '',
     model: '',

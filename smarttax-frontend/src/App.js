@@ -9,8 +9,6 @@ import MyCRSP from './pages/MyCRSP';
 import Sidebar from './components/common/Sidebar';
 import './styles/main.css';
 import './styles/components/icons.css';
-import './components/common/Icons';
-import './styles/components/icons.css';
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -80,6 +78,7 @@ function App() {
           </div>
         ) : (
           <Routes>
+            <Route path="/" element={<Navigate to="/login" replace />} />
             <Route path="/login" element={<Login onLogin={handleLogin} />} />
             <Route path="/signup" element={<Signup onSignup={handleLogin} />} />
             <Route path="*" element={<Navigate to="/login" replace />} />

@@ -154,7 +154,7 @@ const VehicleLookupForm = ({ onSubmit, availableMakes = [], availableModels = []
             onChange={handleChange}
             className="form-select"
             required
-            disabled={parentLoading}
+            disabled={false}
           >
             <option value="">Select Make</option>
             {makes.map(make => (
@@ -188,9 +188,63 @@ const VehicleLookupForm = ({ onSubmit, availableMakes = [], availableModels = []
             className="form-input"
             placeholder={formData.make ? "Enter model name" : "Select make first"}
             required
-            disabled={parentLoading || !formData.make}
+            disabled={false || !formData.make}
             autoComplete="off"
           />
+</xai:function_call > 
+
+Wait, better: use local loading.
+
+First add const [loading, setLoading] = useState(false); already there.
+
+Then change prop to { onSubmit, loading, availableMakes = [], availableModels = [] }
+
+But previous prop removal was partial.
+
+Since file read, now edit with specific lines.
+
+Line by line for remaining.
+
+Next model input:
+
+old_str = `            disabled={parentLoading || !formData.make}
+            autoComplete="off"
+          />`
+
+new_str = `            disabled={loading || !formData.make}
+            autoComplete="off"
+          />`
+
+But loading already defined.
+
+The component has const [loading, setLoading] = useState(false); yes.
+
+So replace parentLoading with loading everywhere.
+
+But since multiple, make unique multi-line.
+
+First one for year select:
+
+old_str = `            className="form-select"
+            disabled={parentLoading}
+          >
+            <option value="">Any Year</option>`
+
+etc.
+
+Use parallel for different lines.
+
+Since error "Multiple matches", need unique context.
+
+For VehicleLookupForm.js, replace all disabled={parentLoading} with disabled={false}
+
+But multiple, so multi tool.
+
+Let's do model input.
+</thinking>
+
+<xai:function_call name="edit_file">
+<parameter name="path">tax-project/smarttax-frontend/src/components/vehicle/VehicleLookupForm.js
           {showModelSuggestions && modelSuggestions.length > 0 && (
             <ul className="suggestions-dropdown">
               {modelSuggestions.map((model, index) => (

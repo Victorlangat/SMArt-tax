@@ -36,8 +36,8 @@ const [selectedVehicle, setSelectedVehicle] = useState(null);
 
   // Fetch makes from dedicated endpoint + retry
   const fetchMakesAndModels = async (retryCount = 0) => {
-    setCrspLoading(true);
-    setCrspError('');
+setLoading(true);
+    setError('');
     try {
       // Try dedicated makes endpoint first (fast)
       let response = await fetch('http://localhost:5000/api/crsp/makes');
@@ -101,9 +101,10 @@ const [selectedVehicle, setSelectedVehicle] = useState(null);
       }
       setCrspError('Backend unavailable. Check if server running on port 5000.');
     } finally {
-      setCrspLoading(false);
+setLoading(false);
     }
   };
+
 
 // Load popular vehicles + Corolla variants on mount
   const corollaVariants = [
@@ -112,6 +113,7 @@ const [selectedVehicle, setSelectedVehicle] = useState(null);
     {make: 'Toyota', model: 'Corolla Hybrid', year: 2024, engineCC: 1800, fuelType: 'hybrid', transmission: 'CVT'},
     {make: 'Toyota', model: 'Corolla Cross', year: 2024, engineCC: 2000, fuelType: 'petrol', transmission: 'automatic'},
   ];
+
 
   useEffect(() => {
     const loadPopularVehicles = async () => {

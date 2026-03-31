@@ -106,15 +106,7 @@ setLoading(false);
   };
 
 
-// Load popular vehicles + Corolla variants on mount
-  const corollaVariants = [
-    {make: 'Toyota', model: 'Corolla', year: 2024, engineCC: 1800, fuelType: 'petrol', transmission: 'automatic'},
-    {make: 'Toyota', model: 'Corolla', year: 2023, engineCC: 1600, fuelType: 'petrol', transmission: 'manual'},
-    {make: 'Toyota', model: 'Corolla Hybrid', year: 2024, engineCC: 1800, fuelType: 'hybrid', transmission: 'CVT'},
-    {make: 'Toyota', model: 'Corolla Cross', year: 2024, engineCC: 2000, fuelType: 'petrol', transmission: 'automatic'},
-  ];
-
-
+// Load popular vehicles (no hardcoded test data)
   useEffect(() => {
     const loadPopularVehicles = async () => {
       try {

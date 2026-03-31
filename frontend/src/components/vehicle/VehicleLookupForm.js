@@ -154,9 +154,8 @@ const VehicleLookupForm = ({ onSubmit, availableMakes = [], availableModels = []
             onChange={handleChange}
             className="form-select"
             required
-            disabled={false}
           >
-            <option value="">Select Make</option>
+            <option value="">Select Make</option> 
             {makes.map(make => (
               <option key={make} value={make}>{make}</option>
             ))}

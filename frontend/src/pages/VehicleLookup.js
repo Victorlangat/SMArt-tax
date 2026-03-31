@@ -13,9 +13,14 @@ const [selectedVehicle, setSelectedVehicle] = useState(null);
   const [popularVehicles, setPopularVehicles] = useState([]);
   // const [availableVehicles, setAvailableVehicles] = useState([]); // unused
   const [searchPerformed, setSearchPerformed] = useState(false);
+  const [crspError, setCrspError] = useState('');
+  const [corollaVariants, setCorollaVariants] = useState([
+    {make: 'Toyota', model: 'Corolla', year: 2020, engineCC: 1800, fuelType: 'petrol', transmission: 'automatic'},
+    {make: 'Toyota', model: 'Corolla', year: 2019, engineCC: 1600, fuelType: 'petrol', transmission: 'manual'},
+  ]);
   
   // Dynamic makes and models from CRSP data
-  const [dynamicMakes, setDynamicMakes] = useState([]);
+  const [dynamicMakes, setDynamicMakes] = useState([]); 
   const [modelsByMake, setModelsByMake] = useState({});
 
   // Load recent searches from localStorage
@@ -37,7 +42,8 @@ const [selectedVehicle, setSelectedVehicle] = useState(null);
   // Fetch makes from dedicated endpoint + retry
   const fetchMakesAndModels = async (retryCount = 0) => {
 setLoading(true);
-    setError('');
+    setCrspError('');
+    setError(''); 
     try {
       // Try dedicated makes endpoint first (fast)
       let response = await fetch('http://localhost:5000/api/crsp/makes');
@@ -88,10 +94,10 @@ setLoading(true);
       const healthRes = await fetch('http://localhost:5000/api/crsp/health');
       const healthData = await healthRes.json();
       if (healthData.success && healthData.totalCRSP === 0) {
-        setCrspError('CRSP database empty. Upload data via CRSP Upload page.');
+        setError('CRSP database empty. Upload data via CRSP Upload page.');
       } else {
-        setCrspError('CRSP service unavailable. Using fallback data.');
-      }
+        setError('CRSP service unavailable. Using fallback data.');
+      } 
     } catch (err) {
       console.error('CRSP fetch error:', err);
       if (retryCount < 3) {
